@@ -6,13 +6,9 @@ from Graphql.Schemas import NoteType
 class Query:
 
    @strawberry.field
-   def hello(self) -> str:
-      return "Hello, world!"
-   
-   @strawberry.field
-   async def get_all(self) -> list[NoteType]:
+   async def getAllNotes(self) -> list[NoteType]:
       return await NoteService.get_all_notes()
    
    @strawberry.field
-   async def get_by_id(self, id: int) -> NoteType:
+   async def getNote(self, id: int) -> NoteType | None:
       return await NoteService.get_by_id(id)

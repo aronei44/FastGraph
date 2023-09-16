@@ -15,6 +15,8 @@ class NoteService:
    @staticmethod
    async def get_by_id(id: int):
       note = await NoteRepository.get_by_id(id)
+      if not note:
+         return None
       return NoteType(id=note.id, name=note.name, description=note.description)
    
    @staticmethod
