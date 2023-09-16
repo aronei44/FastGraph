@@ -16,3 +16,9 @@ email, or any other method with the owners of this repository before making a ch
 1. Variable name must written in english (please dont use your own language)
 2. Always KISS and DRY
 3. happy coding
+
+# Dont know what you must doing?
+
+1. open this repository project
+2. get 1 ticket and do it
+3. dont forget about coffee
