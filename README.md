@@ -18,3 +18,6 @@ pip install -r requirements.txt
 ```
 py main.py
 ```
+
+## Contributing
+I'm so glad if you want to contribute to this project. you can read CONTRIBUTION.md for detail. thank you
