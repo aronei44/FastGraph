@@ -1,6 +1,6 @@
 import uvicorn
 from fastapi import FastAPI
-from config import db
+from Config.Database import db
 from Graphql.mutation import Mutation
 from Graphql.query import Query
 import strawberry
