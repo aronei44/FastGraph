@@ -1,11 +1,11 @@
 from Graphql.Schemas import NoteInput, NoteType
-from Models.note import Note
-from Repositories.note import NoteRepository
+from Models import NoteModel
+from Repositories import NoteRepository
 class NoteService:
    
    @staticmethod
    async def add_note(note_data: NoteInput):
-      note = Note()
+      note = NoteModel()
       note.name = note_data.name
       note.description = note_data.description
       await NoteRepository.create(note)
@@ -24,7 +24,7 @@ class NoteService:
    
    @staticmethod
    async def update(id: int, note_data: NoteInput):
-      note = Note()
+      note = NoteModel()
       note.name = note_data.name
       note.description = note_data.description
       await NoteRepository.update(id, note)
