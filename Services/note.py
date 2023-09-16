@@ -1,6 +1,6 @@
 from schema import NoteInput, NoteType
-from model.note import Note
-from repository.note import NoteRepository
+from Models.note import Note
+from Repositories.note import NoteRepository
 class NoteService:
    
    @staticmethod

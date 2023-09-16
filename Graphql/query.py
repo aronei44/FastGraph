@@ -1,5 +1,5 @@
 import strawberry
-from service.note import NoteService
+from Services.note import NoteService
 from schema import NoteInput, NoteType
 
 @strawberry.type
