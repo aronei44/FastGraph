@@ -1,4 +1,4 @@
-from schema import NoteInput, NoteType
+from Graphql.Schemas import NoteInput, NoteType
 from Models.note import Note
 from Repositories.note import NoteRepository
 class NoteService:

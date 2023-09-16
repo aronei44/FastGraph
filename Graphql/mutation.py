@@ -1,7 +1,7 @@
 import strawberry
 
 from Services.note import NoteService
-from schema import NoteInput, NoteType
+from Graphql.Schemas import NoteInput, NoteType
 
 @strawberry.type
 class Mutation:
