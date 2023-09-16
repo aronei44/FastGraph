@@ -1,19 +1,19 @@
 import strawberry
 
 from Services.note import NoteService
-from Graphql.Schemas import NoteInput, NoteType
+from Graphql.Schemas import NoteInput, NoteType, Status
 
 @strawberry.type
 class Mutation:
 
    @strawberry.mutation
-   async def create(self, note: NoteInput) -> NoteType:
+   async def createNote(self, note: NoteInput) -> NoteType:
       return await NoteService.add_note(note)
 
    @strawberry.mutation
-   async def update(self, id: int, note: NoteInput) -> str:
+   async def updateNote(self, id: int, note: NoteInput) -> Status:
       return await NoteService.update(id, note)
 
    @strawberry.mutation
-   async def delete(self, id: int) -> str:
+   async def deleteNote(self, id: int) -> Status:
       return await NoteService.delete(id)

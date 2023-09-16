@@ -32,20 +32,33 @@ class NoteRepository:
          return notes
    
    @staticmethod
-   async def update(id: int, note_data: NoteModel):
+   async def update(id: int, note_data: NoteModel) -> [bool, str]:
       async with db as session:
          stmt = select(NoteModel).where(NoteModel.id == id)
          result = await session.execute(stmt)
          note = result.scalars().first()
+         if not note:
+            return [False, f'Note with id {id} not found']
          note.name = note_data.name
          note.description = note_data.description
          query = sql_update(NoteModel).where(NoteModel.id == id).values(**note.dict()).execution_options(synchronize_session="fetch")
-         await session.execute(query)
+         res = await session.execute(query)
+         if not res:
+            return [False, f'Note with id {id} not updated']
          await db.commit_roll_back()
+         return [True, f'Note with id {id} updated successfully']
 
    @staticmethod
    async def delete(id: int):
       async with db as session:
+         stmt = select(NoteModel).where(NoteModel.id == id)
+         result = await session.execute(stmt)
+         note = result.scalars().first()
+         if not note:
+            return [False, f'Note with id {id} not found']
          query = sql_delete(NoteModel).where(NoteModel.id == id)
-         await session.execute(query)
+         res = await session.execute(query)
+         if not res:
+            return [False, f'Note with id {id} not deleted']
          await db.commit_roll_back()
+         return [True, f'Note with id {id} deleted successfully']

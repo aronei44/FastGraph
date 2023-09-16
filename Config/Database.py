@@ -11,6 +11,7 @@ class DatabaseSession:
    def __init__(self, url:str=DB_CONFIG) -> None:
       self.engine = create_async_engine(url, echo=True)
       self.SessionLocal = sessionmaker(self.engine, expire_on_commit=False, class_=AsyncSession)
+      self.session = self.SessionLocal()
 
    async def create_all(self):
       async with self.engine.begin() as conn:

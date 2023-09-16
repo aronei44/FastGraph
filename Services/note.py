@@ -1,4 +1,4 @@
-from Graphql.Schemas import NoteInput, NoteType
+from Graphql.Schemas import NoteInput, NoteType, Status
 from Models import NoteModel
 from Repositories import NoteRepository
 class NoteService:
@@ -29,10 +29,10 @@ class NoteService:
       note = NoteModel()
       note.name = note_data.name
       note.description = note_data.description
-      await NoteRepository.update(id, note)
-      return f'Note with id {id} updated successfully'
+      res = await NoteRepository.update(id, note)
+      return Status(success=res[0], message=res[1])
    
    @staticmethod
    async def delete(id: int):
-      await NoteRepository.delete(id)
-      return f'Note with id {id} deleted successfully'
+      res = await NoteRepository.delete(id)
+      return Status(success=res[0], message=res[1])
