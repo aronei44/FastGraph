@@ -1,8 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
 from Config.Database import db
-from Graphql.Mutation import Mutation
-from Graphql.Query import Query
+from Graphql import Mutation, Query
 import strawberry
 from strawberry.fastapi import GraphQLRouter
 
