@@ -1,6 +1,7 @@
 import strawberry
 
+
 @strawberry.type
 class Status:
-   success: bool
-   message: str
+	success: bool
+	message: str

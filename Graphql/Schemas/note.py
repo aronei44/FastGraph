@@ -1,12 +1,14 @@
 import strawberry
 
+
 @strawberry.type
 class NoteType:
-   id: int
-   name: str
-   description: str
+	id: int
+	name: str
+	description: str
+
 
 @strawberry.input
 class NoteInput:
-   name: str
-   description: str
+	name: str
+	description: str
