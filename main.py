@@ -1,6 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
 from Config.Database import db
+from Config.Cors import init_cors
 from Graphql import Mutation, Query
 import strawberry
 from strawberry.fastapi import GraphQLRouter
@@ -18,6 +19,8 @@ def init_app() -> FastAPI:
     @app.on_event("shutdown")
     async def shutdown():
         await db.close()
+
+    init_cors(app)
 
     @app.get("/")
     def home():
