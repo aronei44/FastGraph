@@ -2,11 +2,14 @@ from fastapi.testclient import TestClient
 from main import app
 
 from Test import Main, Note
-
+from Config.Database import DatabaseSession
 
 
 client = TestClient(app)
 graph_url = "/graphql"
+
+db = DatabaseSession("sqlite+aiosqlite:///database.db")
+app.dependency_overrides[DatabaseSession] = db
 
 def test_read_main():
    Main.test_read_main(client)
