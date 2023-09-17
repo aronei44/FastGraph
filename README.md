@@ -19,5 +19,8 @@ pip install -r requirements.txt
 py main.py
 ```
 
+## Testing
+testing is based on pytest testing. You can create test in folder `Test` and import it to `test_main.py`. Run testing with `pytest` or `py -m pytest`
+
 ## Contributing
 I'm so glad if you want to contribute to this project. you can read CONTRIBUTION.md for detail. thank you
