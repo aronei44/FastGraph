@@ -1,4 +1,5 @@
 from .note import NoteRepository
+from .user import UserRepository
 
 
-Repositories = [NoteRepository]
+Repositories = [NoteRepository, UserRepository]
