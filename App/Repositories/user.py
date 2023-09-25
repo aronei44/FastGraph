@@ -1,5 +1,5 @@
-from Models import UserModel 
-from Config.Database import db
+from App.Models import UserModel 
+from App.Config.Database import db
 from sqlalchemy.sql import select
 from sqlalchemy import update as sql_update, delete as sql_delete
 

@@ -1,6 +1,6 @@
-from Graphql.Schemas import NoteInput, NoteType, Status
-from Models import NoteModel
-from Repositories import NoteRepository
+from App.Graphql.Schemas import NoteInput, NoteType, Status
+from App.Models import NoteModel
+from App.Repositories import NoteRepository
 
 
 class NoteService:

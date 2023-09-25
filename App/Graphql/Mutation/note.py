@@ -1,8 +1,8 @@
 import strawberry
 
-from Services.note import NoteService
-from Graphql.Schemas import NoteInput, NoteType, Status
-from Middleware.JWTBearer import IsAuthenticated
+from App.Services.note import NoteService
+from App.Graphql.Schemas import NoteInput, NoteType, Status
+from App.Middleware.JWTBearer import IsAuthenticated
 
 @strawberry.type
 class Mutation:

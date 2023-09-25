@@ -1,7 +1,7 @@
 import strawberry
-from Services.note import NoteService
-from Graphql.Schemas import NoteType
-from Middleware.JWTBearer import IsAuthenticated
+from App.Services.note import NoteService
+from App.Graphql.Schemas import NoteType
+from App.Middleware.JWTBearer import IsAuthenticated
 
 
 @strawberry.type

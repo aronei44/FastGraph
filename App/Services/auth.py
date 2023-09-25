@@ -1,9 +1,9 @@
 from passlib.context import CryptContext
 
-from Models import UserModel
-from Repositories import UserRepository
-from Graphql.Schemas import RegisterInput, LoginInput, LoginType, Status
-from Middleware.JWTManager import JWTManager
+from App.Models import UserModel
+from App.Repositories import UserRepository
+from App.Graphql.Schemas import RegisterInput, LoginInput, LoginType, Status
+from App.Middleware.JWTManager import JWTManager
 
 
 class AuthService:

@@ -1,7 +1,7 @@
 import strawberry
 
-from Services import AuthService
-from Graphql.Schemas import RegisterInput, LoginInput, LoginType, Status
+from App.Services import AuthService
+from App.Graphql.Schemas import RegisterInput, LoginInput, LoginType, Status
 
 
 @strawberry.type

@@ -1,8 +1,8 @@
 from fastapi.testclient import TestClient
-from main import app
+from App.main import app
 
 from Test import Main, Note
-from Config.Database import DatabaseSession
+from App.Config.Database import DatabaseSession
 
 
 client = TestClient(app)
