@@ -12,5 +12,5 @@ class Query:
 		return await NoteService.get_all_notes()
 
 	@strawberry.field(permission_classes=[IsAuthenticated])
-	async def getNote(self, id: int) -> NoteType | None:
+	async def getNote(self, id: int) -> NoteType:
 		return await NoteService.get_by_id(id)

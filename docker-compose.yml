@@ -1,0 +1,50 @@
+version: '3.9'
+
+services:
+  postgres:
+    container_name: fastapi-graphql-postgres
+    image: postgres:14-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - 5434:5432
+    volumes: 
+      - db:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/create_tables.sql
+    networks:
+      - fastapi-graphql
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    container_name: fastapi-graphql
+    restart: unless-stopped
+    volumes:
+      - .:/app
+    networks:
+      - fastapi-graphql
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      JWT_ALGORITHM: ${JWT_ALGORITHM}
+      JWT_ACCESS_TOKEN_EXPIRE_MINUTES: ${JWT_ACCESS_TOKEN_EXPIRE_MINUTES}
+      SQLALCHEMY_SILENCE_UBER_WARNING: 1
+    depends_on:
+      - postgres
+
+volumes:
+  db:
+    driver: local
+
+networks:
+  fastapi-graphql:
