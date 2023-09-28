@@ -1,7 +1,7 @@
 from fastapi.testclient import TestClient
 from App.main import app
 
-from Test import Main, Note
+from Test import Main
 from App.Config.Database import DatabaseSession
 
 
@@ -11,24 +11,51 @@ graph_url = "/graphql"
 db = DatabaseSession("sqlite+aiosqlite:///database.db")
 app.dependency_overrides[DatabaseSession] = db
 
+def clientMap(func):
+	def wrapper(*args, **kwargs):
+		func(client, graph_url, *args, **kwargs)
+	return wrapper
+
 def test_read_main():
    	Main.test_read_main(client)
+	   
+email = "test3@mail.com"
+password = "test"
+@clientMap
+def test_auth(client, url):
+	
+	query = '''
+	mutation {
+		register(registerInput: {
+			username: "test", email: "''' + email + '''", password: "''' + password + '''"
+		}) {
+			success
+			message
+		}
+	}
+	'''
+	response = client.post(url, json={"query": query})
+	assert response.status_code == 200
+	assert "data" in response.json()
+	assert "register" in response.json()["data"]
+	assert "success" in response.json()["data"]["register"]
 
-# def test_get_all_note():
-#    	Note.test_get_all_note(client, graph_url)
+@clientMap
+def test_login(client, url):
+	query = '''
+	mutation {
+		login(loginInput: {
+			email: "''' + email + '''", password: "''' + password + '''"
+		}) {
+			email
+			token
+		}
+	}
+	'''
 
-# def test_get_note_by_id():
-#    	Note.test_get_note_by_id(client, graph_url)
-
-# def test_create_note():
-#    	Note.test_create_note(client, graph_url)
-
-# def test_update_note():
-#    	Note.test_update_note(client, graph_url)
-
-# def test_delete_note():
-#     Note.test_delete_note_by_id(client, graph_url)
-
-"""
-WARNING: test still error because run time error from pytest
-"""
+	response = client.post(url, json={"query": query})
+	assert response.status_code == 200
+	assert "data" in response.json()
+	assert "login" in response.json()["data"]
+	assert "email" in response.json()["data"]["login"]
+	assert "token" in response.json()["data"]["login"]
