@@ -10,7 +10,18 @@ DB_PORT = os.getenv("DB_PORT") or 5432
 DB_USER = os.getenv("DB_USER") or "postgres"
 DB_PASSWORD = os.getenv("DB_PASSWORD") or "postgres"
 DB_NAME = os.getenv("DB_NAME") or "postgres"
-DB_CONFIG = f"postgresql+asyncpg://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+DB = os.getenv("DB") or "postgre"
+
+DB_CONFIG = f"sqlite+aiosqlite:///./{DB_NAME}.db"
+
+match DB:
+	case "postgre":
+		DB_CONFIG = f"postgresql+asyncpg://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+	case "mysql":
+		DB_CONFIG = f"mysql+aiomysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+	case _:
+		DB_CONFIG = f"sqlite+aiosqlite:///./{DB_NAME}.db"
+
 
 class DatabaseSession:
 	def __init__(self, url:str=DB_CONFIG) -> None:
