@@ -1,9 +1,10 @@
 from fastapi import FastAPI
 from App.Config.Database import db
 from App.Config.Cors import init_cors
-from App.Graphql import Mutation, Query
+from App.Graphql import Mutation, Query, Subscription
 import strawberry
 from strawberry.fastapi import GraphQLRouter
+from strawberry.subscriptions import GRAPHQL_TRANSPORT_WS_PROTOCOL, GRAPHQL_WS_PROTOCOL
 
 
 def init_app() -> FastAPI:
@@ -28,8 +29,14 @@ def init_app() -> FastAPI:
     def home():
         return {"message": "Hello World"}
 
-    schema = strawberry.Schema(query=Query, mutation=Mutation)
-    graphql_app = GraphQLRouter(schema=schema)
+    schema = strawberry.Schema(query=Query, mutation=Mutation, subscription=Subscription)
+    graphql_app = GraphQLRouter(
+        schema,
+        subscription_protocols=[
+            GRAPHQL_TRANSPORT_WS_PROTOCOL,
+            GRAPHQL_WS_PROTOCOL,
+        ],
+    )
     app.include_router(graphql_app, prefix="/graphql")
     return app
 
